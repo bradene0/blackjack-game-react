@@ -1,0 +1,28 @@
+/* Card.css */
+.card {
+    width: 50px;
+    height: 80px;
+    border: 1px solid #000;
+    margin: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 16px;
+  }
+  
+  .hearts {
+    color: red;
+  }
+  
+  .diamonds {
+    color: red;
+  }
+  
+  .clubs {
+    color: black;
+  }
+  
+  .spades {
+    color: black;
+  }
+  
