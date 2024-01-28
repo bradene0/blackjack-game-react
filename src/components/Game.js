@@ -1,6 +1,6 @@
 // Game.js
 import React, { useState, useEffect } from 'react';
-import Player from './PLayer';
+import Player from '../components/Player';
 import Dealer from '../components/Dealer';
 
 const suits = ['hearts', 'diamonds', 'clubs', 'spades'];
@@ -11,10 +11,6 @@ const Game = () => {
   const [dealerCards, setDealerCards] = useState([]);
   const [gameOver, setGameOver] = useState(false);
 
-  useEffect(() => {
-    startGame();
-  }, []);
-
   const startGame = () => {
     setPlayerCards([]);
     setDealerCards([]);
@@ -22,6 +18,10 @@ const Game = () => {
     dealCard('player', 2);
     dealCard('dealer', 2);
   };
+
+  useEffect(() => {
+    startGame();
+  }, [startGame]);
 
   const dealCard = (recipient, numCards) => {
     const newCards = [];
@@ -106,6 +106,20 @@ const Game = () => {
     }
 
     setGameOver(true);
+  };
+
+  const calculateWinner = () => {
+    if (checkBust(playerCards)) {
+      return 'Dealer Wins!';
+    } else if (checkBust(dealerCards)) {
+      return 'Player Wins';
+    } else if (playerTotal > dealerTotal) {
+      return 'Player Wins';
+    } else if (playerTotal < dealerTotal) {
+      return 'Dealer Wins!';
+    } else {
+      return 'Push! It\'s a tie';
+    }
   };
 
   const hit = () => {
