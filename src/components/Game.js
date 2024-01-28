@@ -1,8 +1,10 @@
 // Game.js
 import React, { useState, useEffect } from 'react';
-import Player from '../components/Player';
+import Player from './PLayer';
 import Dealer from '../components/Dealer';
+import { debounce } from 'lodash';
 
+//const debouncedDealCard = debounce(dealCard, 200); // Adjust the debounce delay as needed
 const suits = ['hearts', 'diamonds', 'clubs', 'spades'];
 const values = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A'];
 
@@ -30,13 +32,15 @@ const Game = () => {
       const randomValue = values[Math.floor(Math.random() * values.length)];
       newCards.push({ suit: randomSuit, value: randomValue });
     }
-
+  
     if (recipient === 'player') {
-      setPlayerCards((prevCards) => [...prevCards, ...newCards]);
+      setPlayerCards(prevCards => [...prevCards, ...newCards]);
     } else if (recipient === 'dealer') {
-      setDealerCards((prevCards) => [...prevCards, ...newCards]);
+      setDealerCards(prevCards => [...prevCards, ...newCards]);
     }
   };
+  
+  const debouncedDealCard = debounce(dealCard, 200);
 
   const calculateTotal = (hand) => {
     let total = 0;
@@ -123,7 +127,7 @@ const Game = () => {
   };
 
   const hit = () => {
-    dealCard('player', 1);
+    debouncedDealCard('player', 1);
     playerTurn();
   };
 

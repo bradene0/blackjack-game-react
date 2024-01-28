@@ -1,18 +1,30 @@
 // App.js
-import React from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import React, { useState } from 'react';
 import Home from './pages/Home';
-import Game from '../src/components/Game'; // Updated import statement
-import './App.css';
+import Game from '../src/components/Game';
 
 const App = () => {
+  const [currentPage, setCurrentPage] = useState('home');
+
+  const navigateTo = (page) => {
+    setCurrentPage(page);
+  };
+
+  const renderPage = () => {
+    switch (currentPage) {
+      case 'home':
+        return <Home navigateTo={navigateTo} />;
+      case 'game':
+        return <Game navigateTo={navigateTo} />;
+      default:
+        return <Home navigateTo={navigateTo} />;
+    }
+  };
+
   return (
-    <Router>
-      <Routes>  {/* Use Routes instead of Switch */}
-        <Route path="/" element={<Home />} />
-        <Route path="/game" element={<Game />} />
-      </Routes>
-    </Router>
+    <div>
+      {renderPage()}
+    </div>
   );
 };
 
